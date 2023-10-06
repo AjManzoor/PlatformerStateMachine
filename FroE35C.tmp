@@ -11,7 +11,6 @@
 [ext_resource type="Script" path="res://FrogStateMachine.gd" id="9_o7viq"]
 [ext_resource type="Script" path="res://GroundState.gd" id="10_oactp"]
 [ext_resource type="Script" path="res://StateDebugLabel.gd" id="11_4jfyc"]
-[ext_resource type="Script" path="res://ChaseState.gd" id="11_yt2g7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nritg"]
 size = Vector2(24, 16)
@@ -222,40 +221,48 @@ _data = {
 "RESET": SubResource("Animation_7wrsw")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_olvlm"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4kkda"]
 animation = &"Idle"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d1lna"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l8ibl"]
 animation = &"Jump"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jgm1e"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1pxpg"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_lpiaj"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_4kkda")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_l8ibl")
+blend_point_1/pos = -1.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_1pxpg")
+blend_point_2/pos = 1.0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5s20q"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xbv6h"]
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_x0epo"]
-states/Idle/node = SubResource("AnimationNodeAnimation_olvlm")
-states/Idle/position = Vector2(307, 86)
-states/Jump/node = SubResource("AnimationNodeAnimation_d1lna")
-states/Jump/position = Vector2(496, 86)
-states/Start/position = Vector2(189, 86)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_jgm1e"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_xbv6h")]
+states/Move/node = SubResource("AnimationNodeBlendSpace1D_lpiaj")
+states/Move/position = Vector2(363, 85)
+states/Start/position = Vector2(190, 85)
+transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_5s20q")]
 
 [node name="Frog" type="CharacterBody2D"]
 script = ExtResource("1_0o3de")
 metadata/_edit_vertical_guides_ = [-248.0]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1, 2)
 shape = SubResource("RectangleShape2D_nritg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_j4i4x")
-animation = &"Idle"
-frame = 1
+animation = &"Jump"
 
 [node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 scale = Vector2(13.7491, 12.6217)
@@ -275,6 +282,13 @@ position = Vector2(4.17233e-07, 4.5)
 scale = Vector2(13.7491, 12.6217)
 shape = SubResource("RectangleShape2D_idrnp")
 
+[node name="FrogStateMachine" type="Node" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("9_o7viq")
+character = NodePath("..")
+
+[node name="Ground" type="Node" parent="FrogStateMachine"]
+script = ExtResource("10_oactp")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_5whgd")
@@ -283,31 +297,15 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_x0epo")
 anim_player = NodePath("../AnimationPlayer")
-
-[node name="FrogStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("character", "current_state", "animation_tree")]
-script = ExtResource("9_o7viq")
-character = NodePath("..")
-current_state = NodePath("Ground")
-animation_tree = NodePath("../AnimationTree")
-
-[node name="Ground" type="Node" parent="FrogStateMachine" node_paths=PackedStringArray("chase_state")]
-script = ExtResource("10_oactp")
-chase_state = NodePath("../Chase")
-
-[node name="Chase" type="Node" parent="FrogStateMachine" node_paths=PackedStringArray("ground_state")]
-script = ExtResource("11_yt2g7")
-ground_state = NodePath("../Ground")
+parameters/Move/blend_position = 0
 
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
-offset_left = -21.0
-offset_top = -37.0
-offset_right = 124.0
-offset_bottom = -11.0
-text = "State:"
+offset_right = 40.0
+offset_bottom = 23.0
 script = ExtResource("11_4jfyc")
 state_machine = NodePath("../FrogStateMachine")
 
-[connection signal="body_entered" from="PlayerDetection" to="FrogStateMachine/Ground" method="_on_player_detection_body_entered"]
-[connection signal="body_exited" from="PlayerDetection" to="FrogStateMachine/Chase" method="_on_player_detection_body_exited"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
 [connection signal="body_entered" from="PlayerDeath" to="." method="_on_player_death_body_entered"]
 [connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision_body_entered"]

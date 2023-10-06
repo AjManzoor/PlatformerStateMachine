@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bowi5844tn18f"]
+[gd_scene load_steps=37 format=3 uid="uid://bowi5844tn18f"]
 
 [ext_resource type="Script" path="res://Frog.gd" id="1_0o3de"]
 [ext_resource type="Texture2D" uid="uid://dfj3r5nf3ikmn" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/frog/jump/frog-jump-2.png" id="1_vmgeb"]
@@ -222,38 +222,45 @@ _data = {
 "RESET": SubResource("Animation_7wrsw")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_olvlm"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4kkda"]
 animation = &"Idle"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d1lna"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l8ibl"]
 animation = &"Jump"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jgm1e"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1pxpg"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_lpiaj"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_4kkda")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_l8ibl")
+blend_point_1/pos = -1.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_1pxpg")
+blend_point_2/pos = 1.0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5s20q"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xbv6h"]
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_x0epo"]
-states/Idle/node = SubResource("AnimationNodeAnimation_olvlm")
-states/Idle/position = Vector2(307, 86)
-states/Jump/node = SubResource("AnimationNodeAnimation_d1lna")
-states/Jump/position = Vector2(496, 86)
-states/Start/position = Vector2(189, 86)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_jgm1e"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_xbv6h")]
+states/Move/node = SubResource("AnimationNodeBlendSpace1D_lpiaj")
+states/Move/position = Vector2(363, 85)
+states/Start/position = Vector2(190, 85)
+transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_5s20q")]
 
 [node name="Frog" type="CharacterBody2D"]
 script = ExtResource("1_0o3de")
 metadata/_edit_vertical_guides_ = [-248.0]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-1, 2)
 shape = SubResource("RectangleShape2D_nritg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_j4i4x")
-animation = &"Idle"
-frame = 1
+animation = &"Jump"
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 
@@ -283,6 +290,7 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_x0epo")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Move/blend_position = 0
 
 [node name="FrogStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("character", "current_state", "animation_tree")]
 script = ExtResource("9_o7viq")
@@ -294,9 +302,8 @@ animation_tree = NodePath("../AnimationTree")
 script = ExtResource("10_oactp")
 chase_state = NodePath("../Chase")
 
-[node name="Chase" type="Node" parent="FrogStateMachine" node_paths=PackedStringArray("ground_state")]
+[node name="Chase" type="Node" parent="FrogStateMachine"]
 script = ExtResource("11_yt2g7")
-ground_state = NodePath("../Ground")
 
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -21.0
@@ -308,6 +315,6 @@ script = ExtResource("11_4jfyc")
 state_machine = NodePath("../FrogStateMachine")
 
 [connection signal="body_entered" from="PlayerDetection" to="FrogStateMachine/Ground" method="_on_player_detection_body_entered"]
-[connection signal="body_exited" from="PlayerDetection" to="FrogStateMachine/Chase" method="_on_player_detection_body_exited"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
 [connection signal="body_entered" from="PlayerDeath" to="." method="_on_player_death_body_entered"]
 [connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision_body_entered"]
