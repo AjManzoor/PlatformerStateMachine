@@ -14,8 +14,6 @@ func _on_player_detection_body_entered(body):
 		print("enter")
 		chase()
 
-
 func chase():
-	print("chase ")
 	next_state = chase_state
-	
+

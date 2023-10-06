@@ -16,7 +16,8 @@ func _ready():
 	animation_tree.active = true
 
 func update_animation():
-	animation_tree.set("parameters/Idle", true)
+	print(direction)
+	animation_tree.set("parameters/Move/blend_position", direction.x)
 
 func update_facing_direction():
 	if direction.x > 0:

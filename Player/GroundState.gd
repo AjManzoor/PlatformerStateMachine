@@ -16,7 +16,6 @@ func state_process(delta):
 	if is_hurt:
 		next_state = hurt_state
 		playback.travel("Hurt")
-
 		
 		
 func state_input(event : InputEvent):
