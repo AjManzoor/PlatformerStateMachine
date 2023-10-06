@@ -6,7 +6,6 @@ var direction : Vector2 = Vector2.ZERO
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-
 @onready var animation_tree : AnimationTree = $AnimationTree
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var state_machine : CharacterStateMachine = $CharacterStateMachine
@@ -16,7 +15,6 @@ func _ready():
 	animation_tree.active = true
 
 func update_animation():
-	print(direction)
 	animation_tree.set("parameters/Move/blend_position", direction.x)
 
 func update_facing_direction():

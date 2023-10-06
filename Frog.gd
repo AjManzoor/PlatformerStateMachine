@@ -15,10 +15,12 @@ func _ready():
 func update_animation():
 	animation_tree.set("parameters/Idle", true)
 
+
 func _physics_process(delta):
 	velocity.y += gravity * delta
 	update_animation()
 	move_and_slide()
+	update_facing_direction()
 
 
 func _on_player_death_body_entered(body):
@@ -36,3 +38,10 @@ func death():
 	Utils.saveGame()
 	self.queue_free()
 	
+func update_facing_direction():
+	var player = get_node("../../Player/Player")
+	direction = (player.position - self.position).normalized()
+	if direction.x > 0:
+		sprite.flip_h = true
+	elif direction.x < 0:
+		sprite.flip_h = false

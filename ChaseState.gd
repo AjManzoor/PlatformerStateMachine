@@ -4,7 +4,6 @@ extends State
 
 func _on_player_detection_body_exited(body):
 	if(body.name == "Player"):
-		print("exited")
 		stop_chase()
 
 func state_process(delta):
