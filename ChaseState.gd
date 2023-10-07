@@ -16,7 +16,8 @@ func stop_chase():
 
 
 func on_enter():
-	chase()
+	print("chase")
+	chase() 
 
 func chase():
 	var player = get_node("./../../../../Player/Player")

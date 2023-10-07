@@ -16,3 +16,6 @@ func _on_player_detection_body_entered(body):
 func chase():
 	next_state = chase_state
 
+
+func on_enter():
+	print("Ground")

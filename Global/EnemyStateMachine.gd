@@ -23,10 +23,11 @@ func update_hurt_player():
 
 
 func _process(delta):
-	current_state.state_process(delta)
+	if(current_state != null):
+		current_state.state_process(delta)
 
-	if(current_state.next_state != null):
-		switch_states(current_state.next_state)
+		if(current_state.next_state != null):
+			switch_states(current_state.next_state)
 
 	
 func check_if_can_move():

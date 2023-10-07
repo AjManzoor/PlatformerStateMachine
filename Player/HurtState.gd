@@ -8,13 +8,19 @@ var timer = 0.0
 
 func state_process(delta):
 	can_move = false
+	playback.travel("Hurt")
 	timer += delta
 	if timer >= recovery_time:
 		next_state = idle_state
-		idle_state.is_hurt = false
 		playback.travel("Move")
 		timer = 0.0
 
 		
+func  on_exit():
+	print("exot")
 
+
+func on_enter():
+	print("enter")
+	is_hurt = true
 

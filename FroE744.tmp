@@ -397,7 +397,7 @@ animation_tree = NodePath("../AnimationTree")
 [node name="Death" type="Node" parent="FrogStateMachine" node_paths=PackedStringArray("anim", "timer")]
 script = ExtResource("12_c454k")
 anim = NodePath("../../AnimationPlayer")
-timer = NodePath("../../DeathTimer")
+timer = NodePath("../../Timer")
 
 [node name="Ground" type="Node" parent="FrogStateMachine" node_paths=PackedStringArray("chase_state")]
 script = ExtResource("10_oactp")
@@ -416,12 +416,11 @@ text = "State:"
 script = ExtResource("11_4jfyc")
 state_machine = NodePath("../FrogStateMachine")
 
-[node name="DeathTimer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 0.5
 
 [connection signal="body_entered" from="PlayerDetection" to="FrogStateMachine/Ground" method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="FrogStateMachine/Chase" method="_on_player_detection_body_exited"]
 [connection signal="body_entered" from="PlayerDeath" to="." method="_on_player_death_body_entered"]
 [connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision_body_entered"]
-[connection signal="timeout" from="DeathTimer" to="FrogStateMachine/Death" method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="FrogStateMachine/Death" method="_on_timer_timeout"]

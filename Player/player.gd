@@ -1,5 +1,4 @@
 extends CharacterBody2D
-
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 var direction : Vector2 = Vector2.ZERO
@@ -23,9 +22,11 @@ func update_facing_direction():
 	elif direction.x < 0:
 		sprite.flip_h = true
 
-func update_hurt_player():
+func update_hurt_player(attack_damage):
+	if(state_machine.current_state.is_hurt == false):
+		Game.playerHP -= attack_damage	
 	state_machine.update_hurt_player()
-	Game.playerHP -=3	
+
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -44,7 +45,11 @@ func _physics_process(delta):
 	move_and_slide()
 	update_animation()
 	update_facing_direction()
+	check_if_alive()
 	
+	
+
+func check_if_alive():
 	if Game.playerHP <= 0:
 		queue_free()
 		get_tree().change_scene_to_file("res://main.tscn")

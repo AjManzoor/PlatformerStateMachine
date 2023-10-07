@@ -30,13 +30,13 @@ func _on_player_death_body_entered(body):
 
 func _on_player_collision_body_entered(body):
 	if body.name == "Player":
-		body.update_hurt_player()
+		body.update_hurt_player(2)
 		death()
 
 func death():
 	Game.gold +=5
 	Utils.saveGame()
-	self.queue_free()
+	state_machine.death()
 	
 func update_facing_direction():
 	var player = get_node("../../Player/Player")
