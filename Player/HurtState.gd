@@ -17,10 +17,9 @@ func state_process(delta):
 
 		
 func  on_exit():
-	print("exot")
+	pass
 
 
 func on_enter():
-	print("enter")
 	is_hurt = true
 

@@ -9,6 +9,7 @@ var character : CharacterBody2D
 var next_state : State
 var playback : AnimationNodeStateMachinePlayback
 var is_hurt : bool = false
+var is_flying : bool = false
 
 func state_process(delta):
 	pass
