@@ -418,7 +418,7 @@ state_machine = NodePath("../FrogStateMachine")
 
 [node name="DeathTimer" type="Timer" parent="."]
 process_callback = 0
-wait_time = 0.5
+wait_time = 0.3
 
 [connection signal="body_entered" from="PlayerDetection" to="FrogStateMachine/Ground" method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="FrogStateMachine/Chase" method="_on_player_detection_body_exited"]

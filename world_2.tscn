@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbacl2neh8wsr"]
+
+[ext_resource type="PackedScene" uid="uid://dtxi8eu63tmx2" path="res://Player/player.tscn" id="1_kd3tc"]
+[ext_resource type="Texture2D" uid="uid://irbe5ptq7kk1" path="res://Backgrounds/tajmahall.jpg" id="2_xko47"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f10eh"]
+size = Vector2(4258.5, 20)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(950, 0)
+
+[node name="Tajmahall" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(513, 132)
+texture = ExtResource("2_xko47")
+
+[node name="Player" parent="." instance=ExtResource("1_kd3tc")]
+position = Vector2(249, 214)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(2098, 231)
+shape = SubResource("RectangleShape2D_f10eh")

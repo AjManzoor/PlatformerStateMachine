@@ -40,20 +40,18 @@ func _physics_process(delta):
 		velocity.x = direction.x * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		
-
 	move_and_slide()
 	update_animation()
 	update_facing_direction()
 	check_if_alive()
 	
-	
-
 func check_if_alive():
 	if Game.playerHP <= 0:
 		queue_free()
 		get_tree().change_scene_to_file("res://main.tscn")
-		Game.playerHP = 10;
-		Game.gold = 0;
-		Utils.saveGame()
+		reset_player()
 
+func reset_player():
+	Game.playerHP = 10
+	Game.gold = 0;
+	Utils.saveGame()
