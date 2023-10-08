@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://dtxi8eu63tmx2"]
+[gd_scene load_steps=101 format=3 uid="uid://dtxi8eu63tmx2"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_uwbkq"]
 [ext_resource type="Texture2D" uid="uid://llcujgxeoky5" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/player/crouch/player-crouch-1.png" id="2_bnvgj"]
@@ -27,6 +27,8 @@
 [ext_resource type="Script" path="res://Player/CrouchState.gd" id="23_m5o2i"]
 [ext_resource type="Script" path="res://Player/FlyState.gd" id="25_u1xm2"]
 [ext_resource type="Script" path="res://Player/Attack.gd" id="26_y1mn7"]
+[ext_resource type="Script" path="res://Player/AttackAAState.gd" id="28_mg6eq"]
+[ext_resource type="Script" path="res://Player/AttackAState.gd" id="28_p0f8q"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u3ljt"]
 radius = 7.0
@@ -43,6 +45,30 @@ region = Rect2(552, 552, 92, 92)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ewq2i"]
 atlas = ExtResource("6_cxpmm")
 region = Rect2(644, 552, 92, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hnftf"]
+atlas = ExtResource("6_cxpmm")
+region = Rect2(736, 552, 92, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guyeu"]
+atlas = ExtResource("6_cxpmm")
+region = Rect2(828, 552, 92, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eajr8"]
+atlas = ExtResource("6_cxpmm")
+region = Rect2(0, 644, 92, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3l7l5"]
+atlas = ExtResource("6_cxpmm")
+region = Rect2(92, 644, 92, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jckri"]
+atlas = ExtResource("6_cxpmm")
+region = Rect2(184, 644, 92, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2j7kh"]
+atlas = ExtResource("6_cxpmm")
+region = Rect2(276, 644, 92, 92)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xlgsq"]
 atlas = ExtResource("6_cxpmm")
@@ -163,6 +189,29 @@ animations = [{
 "loop": true,
 "name": &"Attack",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hnftf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guyeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eajr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3l7l5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jckri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2j7kh")
+}],
+"loop": true,
+"name": &"Attack_2",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -371,6 +420,34 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_jrq6k"]
+resource_name = "Attack_2"
+length = 0.45
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Attack_2"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 5]
 }
 
 [sub_resource type="Animation" id="Animation_a8o18"]
@@ -586,6 +663,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_juel5"]
 _data = {
 "Attack": SubResource("Animation_33up4"),
+"Attack_2": SubResource("Animation_jrq6k"),
 "Crouch": SubResource("Animation_a8o18"),
 "Fall": SubResource("Animation_ebmv5"),
 "Fly": SubResource("Animation_uf4ym"),
@@ -598,6 +676,9 @@ _data = {
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ygpps"]
 animation = &"Attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yokv4"]
+animation = &"Attack_2"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ufjsv"]
 animation = &"Crouch"
@@ -654,24 +735,28 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yvy0w"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qqq65"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5c8gt"]
 states/Attack/node = SubResource("AnimationNodeAnimation_ygpps")
-states/Attack/position = Vector2(333, 28)
+states/Attack/position = Vector2(328, 28)
+states/Attack_2/node = SubResource("AnimationNodeAnimation_yokv4")
+states/Attack_2/position = Vector2(488.856, 28)
 states/Crouch/node = SubResource("AnimationNodeAnimation_ufjsv")
 states/Crouch/position = Vector2(342, 173)
 states/Fall/node = SubResource("AnimationNodeAnimation_lv3wd")
-states/Fall/position = Vector2(482, 134)
+states/Fall/position = Vector2(575, 173)
 states/Fly/node = SubResource("AnimationNodeAnimation_4jol6")
-states/Fly/position = Vector2(694.526, 42)
+states/Fly/position = Vector2(776, 100)
 states/Hurt/node = SubResource("AnimationNodeAnimation_0l3gm")
-states/Hurt/position = Vector2(713, 112)
+states/Hurt/position = Vector2(729, 156)
 states/Jump/node = SubResource("AnimationNodeAnimation_y8s5u")
-states/Jump/position = Vector2(482, 58)
+states/Jump/position = Vector2(500, 100)
 "states/Jump 2/node" = SubResource("AnimationNodeAnimation_2khqi")
-"states/Jump 2/position" = Vector2(592, 40)
+"states/Jump 2/position" = Vector2(653, 100)
 states/Move/node = SubResource("AnimationNodeBlendSpace1D_2wu8d")
-states/Move/position = Vector2(342, 100)
-transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_gk4ph"), "Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_kh57n"), "Jump", "Jump 2", SubResource("AnimationNodeStateMachineTransition_kll76"), "Jump 2", "Fall", SubResource("AnimationNodeStateMachineTransition_scxai"), "Move", "Crouch", SubResource("AnimationNodeStateMachineTransition_41b5v"), "Jump 2", "Fly", SubResource("AnimationNodeStateMachineTransition_7sr16"), "Move", "Attack", SubResource("AnimationNodeStateMachineTransition_oeeqm"), "Attack", "Move", SubResource("AnimationNodeStateMachineTransition_rybwt"), "Move", "Jump", SubResource("AnimationNodeStateMachineTransition_yvy0w")]
+states/Move/position = Vector2(333, 100)
+transitions = ["Start", "Move", SubResource("AnimationNodeStateMachineTransition_gk4ph"), "Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_kh57n"), "Jump", "Jump 2", SubResource("AnimationNodeStateMachineTransition_kll76"), "Jump 2", "Fall", SubResource("AnimationNodeStateMachineTransition_scxai"), "Move", "Crouch", SubResource("AnimationNodeStateMachineTransition_41b5v"), "Jump 2", "Fly", SubResource("AnimationNodeStateMachineTransition_7sr16"), "Move", "Attack", SubResource("AnimationNodeStateMachineTransition_oeeqm"), "Attack", "Move", SubResource("AnimationNodeStateMachineTransition_rybwt"), "Move", "Jump", SubResource("AnimationNodeStateMachineTransition_yvy0w"), "Attack", "Attack_2", SubResource("AnimationNodeStateMachineTransition_qqq65")]
 graph_offset = Vector2(59.8557, 0)
 
 [node name="Player" type="CharacterBody2D"]
@@ -683,7 +768,7 @@ shape = SubResource("CapsuleShape2D_u3ljt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_i04x5")
-animation = &"Attack"
+animation = &"Attack_2"
 frame = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -713,7 +798,7 @@ script = ExtResource("17_8ask0")
 air_state = NodePath("../Air")
 hurt_state = NodePath("../Hurt")
 crouch_state = NodePath("../Crouch")
-attack_state = NodePath("../Attack")
+attack_state = NodePath("../AttackA")
 
 [node name="Air" type="Node2D" parent="CharacterStateMachine" node_paths=PackedStringArray("landing_state", "fly_state", "hurt_state")]
 script = ExtResource("18_hayfp")
@@ -739,10 +824,20 @@ ground_state = NodePath("../Ground")
 script = ExtResource("25_u1xm2")
 ground_state = NodePath("../Ground")
 
-[node name="Attack" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "attack_timer")]
+[node name="Attack" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state")]
 script = ExtResource("26_y1mn7")
 ground_state = NodePath("../Ground")
-attack_timer = NodePath("../../AttackTimer")
+
+[node name="AttackA" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "attack_timer", "next_attack_state")]
+script = ExtResource("28_p0f8q")
+ground_state = NodePath("../Ground")
+attack_timer = NodePath("../../AttackATimer")
+next_attack_state = NodePath("../AttackAA")
+
+[node name="AttackAA" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "attack_timer")]
+script = ExtResource("28_mg6eq")
+ground_state = NodePath("../Ground")
+attack_timer = NodePath("../../AttackAATimer")
 
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -60.0
@@ -754,8 +849,10 @@ text = "Label:
 script = ExtResource("20_fmopu")
 state_machine = NodePath("../CharacterStateMachine")
 
-[node name="AttackTimer" type="Timer" parent="."]
-wait_time = 0.3
+[node name="AttackAATimer" type="Timer" parent="."]
+
+[node name="AttackATimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="timeout" from="AttackTimer" to="CharacterStateMachine/Attack" method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="AttackAATimer" to="CharacterStateMachine/AttackAA" method="_on_attack_aa_timer_timeout"]
+[connection signal="timeout" from="AttackATimer" to="CharacterStateMachine/AttackA" method="_on_attack_a_timer_timeout"]

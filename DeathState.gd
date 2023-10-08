@@ -8,7 +8,7 @@ func state_process(delta):
 	if playback.is_playing():
 		pass
 	else:
-		print("Test 2")
+		pass
 
 func on_enter():
 	timer.start()
