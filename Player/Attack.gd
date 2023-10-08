@@ -24,9 +24,9 @@ func ground():
 	next_state = ground_state
 	
 func goto_next_attack_state():
-	#next_state = next_attack_state
-	#attack_timer.stop()
-	pass
+	attack_timer.stop()
+	next_state = next_attack_state
+	#pass
 
 func state_input(event : InputEvent):
 	if(event.is_action_pressed("Attack")):

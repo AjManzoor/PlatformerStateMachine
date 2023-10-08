@@ -4,7 +4,6 @@ class_name AttackAAState
 
 
 func animation():
-	playback.stop()
 	playback.travel("Attack_2")
 
 
