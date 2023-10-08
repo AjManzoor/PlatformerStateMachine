@@ -30,6 +30,7 @@ func jump():
 
 func on_enter():
 	playback.travel("Move")
+	#pass
 
 	
 func crouch():
