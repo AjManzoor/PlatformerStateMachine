@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://dtxi8eu63tmx2"]
+[gd_scene load_steps=108 format=3 uid="uid://dtxi8eu63tmx2"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_uwbkq"]
 [ext_resource type="Texture2D" uid="uid://llcujgxeoky5" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/player/crouch/player-crouch-1.png" id="2_bnvgj"]
@@ -32,7 +32,6 @@
 [ext_resource type="Script" path="res://Player/AttackAAAState.gd" id="29_ssfod"]
 [ext_resource type="Script" path="res://Player/MovementState.gd" id="30_6lvfa"]
 [ext_resource type="Script" path="res://Player/MovementAirState.gd" id="31_qyjpv"]
-[ext_resource type="Script" path="res://Player/MovementGroundState.gd" id="32_ch2k1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u3ljt"]
 radius = 17.0
@@ -866,7 +865,7 @@ air_state = NodePath("../Air")
 hurt_state = NodePath("../Hurt")
 crouch_state = NodePath("../Crouch")
 attack_state = NodePath("../AttackA")
-move_state = NodePath("../MovementGround")
+move_state = NodePath("../Movement")
 
 [node name="Air" type="Node2D" parent="CharacterStateMachine" node_paths=PackedStringArray("landing_state", "fly_state", "hurt_state")]
 script = ExtResource("18_hayfp")
@@ -891,7 +890,7 @@ ground_state = NodePath("../Ground")
 [node name="Fly" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "move_state")]
 script = ExtResource("25_u1xm2")
 ground_state = NodePath("../Ground")
-move_state = NodePath("../MovementAir")
+move_state = NodePath("../Movement")
 
 [node name="Attack" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state")]
 script = ExtResource("26_y1mn7")
@@ -920,18 +919,8 @@ ground_state = NodePath("../Ground")
 air_state = NodePath("../Air")
 sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="MovementAir" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("flying_state", "ground_state", "air_state", "sprite")]
+[node name="MovementAir" type="Node" parent="CharacterStateMachine"]
 script = ExtResource("31_qyjpv")
-flying_state = NodePath("../Fly")
-ground_state = NodePath("../Ground")
-air_state = NodePath("../Air")
-sprite = NodePath("../../AnimatedSprite2D")
-
-[node name="MovementGround" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "air_state", "sprite")]
-script = ExtResource("32_ch2k1")
-ground_state = NodePath("../Ground")
-air_state = NodePath("../Air")
-sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -58.0

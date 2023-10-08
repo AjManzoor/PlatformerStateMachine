@@ -36,7 +36,7 @@ func jump():
 
 func on_enter():
 	playback.travel("Idle")
-	#pass
+	character.velocity.x = 0
 
 	
 func crouch():
