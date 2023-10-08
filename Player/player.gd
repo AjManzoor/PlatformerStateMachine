@@ -12,7 +12,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var state_machine : CharacterStateMachine = $CharacterStateMachine
 
 func _ready():
-	
 	animation_tree.active = true
 
 func update_animation():
@@ -29,6 +28,8 @@ func update_hurt_player(attack_damage):
 		Game.playerHP -= attack_damage	
 	state_machine.update_hurt_player()
 
+func get_current_state():
+	return state_machine.current_state
 
 func _physics_process(delta):
 	# Add the gravity.

@@ -3,7 +3,7 @@ extends State
 @export var ground_state : State
 
 func _on_player_detection_body_exited(body):
-	if(body.name == "Player"):
+	if(body is Player):
 		stop_chase()
 
 func state_process(delta):
@@ -16,7 +16,6 @@ func stop_chase():
 
 
 func on_enter():
-	print("chase")
 	chase() 
 
 func chase():

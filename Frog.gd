@@ -24,13 +24,16 @@ func _physics_process(delta):
 
 
 func _on_player_death_body_entered(body):
-	if body == Player:
+	if body is Player:
 		death()
 		
 
 func _on_player_collision_body_entered(body):
-	if body == Player:
-		body.update_hurt_player(2)
+	if body is Player:
+		var current_state = body.get_current_state()
+		if !current_state is AttackState:
+			print(current_state)
+			body.update_hurt_player(2)
 		death()
 
 func death():

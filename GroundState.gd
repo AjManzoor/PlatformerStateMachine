@@ -10,7 +10,7 @@ func state_process(delta):
 		
 
 func _on_player_detection_body_entered(body):
-	if body.name == "Player":
+	if body is Player:
 		chase()
 
 func chase():
