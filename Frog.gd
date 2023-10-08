@@ -24,12 +24,12 @@ func _physics_process(delta):
 
 
 func _on_player_death_body_entered(body):
-	if body.name == "Player":
+	if body == Player:
 		death()
 		
 
 func _on_player_collision_body_entered(body):
-	if body.name == "Player":
+	if body == Player:
 		body.update_hurt_player(2)
 		death()
 
