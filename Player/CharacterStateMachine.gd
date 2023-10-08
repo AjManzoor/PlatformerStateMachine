@@ -22,7 +22,6 @@ func update_hurt_player():
 	switch_states(hurt_state)
 
 
-
 func _process(delta):
 	current_state.state_process(delta)
 	

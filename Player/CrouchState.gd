@@ -6,9 +6,9 @@ class_name CrouchState
 
 		
 func state_process(delta):
-	CheckIfPlayerIsStillCrouching()
+	check_if_player_is_still_crouching()
 
-func CheckIfPlayerIsStillCrouching():
+func check_if_player_is_still_crouching():
 	if(!Input.is_action_pressed("Down")):
 		stand()
 
