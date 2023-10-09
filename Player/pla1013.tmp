@@ -1013,10 +1013,11 @@ ground_state = NodePath("../Ground")
 dash_state = NodePath("../DashGround")
 sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="DashAir" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("flying_state", "ground_state", "sprite")]
+[node name="DashAir" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("flying_state", "ground_state", "air_state", "sprite")]
 script = ExtResource("33_2xf4w")
 flying_state = NodePath("../Fly")
 ground_state = NodePath("../Ground")
+air_state = NodePath("../Air")
 sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="DashGround" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "air_state", "sprite")]

@@ -14,7 +14,7 @@ func state_process(delta):
 func fly():
 	#playback.travel("Fly")
 	var direction = Input.get_vector("Left", "Right", "Up", "Down")
-	character.velocity.y = direction.y * 300 - 15
+	character.velocity.y = direction.y * 300
 
 func check_if_landed():
 	if character.is_on_floor():

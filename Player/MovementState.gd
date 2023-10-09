@@ -3,20 +3,18 @@ extends State
 class_name MovementState
 
 @export var ground_state : State
-@export var air_state : State
+@export var dash_state : State
 @export var jump_velocity : float = -350;
 @export var sprite : AnimatedSprite2D
-const SPEED = 300.0
+var SPEED = 300.0
 var direction : Vector2
 
 func state_process(delta):
-	move()
+	dash()
 	update_facing_direction()
 	
 func on_enter():
-	playback.travel("Run")
-
-
+	pass
 
 func check_if_player_moving():
 	if(!Input.is_action_pressed("Left") && !Input.is_action_pressed("Right") ):
@@ -32,10 +30,9 @@ func move():
 	else:
 		character.velocity.x = move_toward(character.velocity.x, 0, SPEED)
 	
-func jump():
-	character.velocity.y = jump_velocity
-	playback.travel("Jump")
-	next_state = air_state
+func dash():
+	pass
+
 	
 func update_facing_direction():
 	if direction.x > 0:

@@ -17,8 +17,6 @@ func _ready():
 func update_animation():
 	animation_tree.set("parameters/Idle", direction.x)
 
-
-
 func update_hurt_player(attack_damage):
 	if(state_machine.current_state.is_hurt == false):
 		Game.playerHP -= attack_damage	
