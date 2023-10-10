@@ -998,12 +998,11 @@ script = ExtResource("30_6lvfa")
 ground_state = NodePath("../Ground")
 sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="MovementAir" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("flying_state", "dash_air_state", "ground_state", "air_state", "sprite")]
+[node name="MovementAir" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("flying_state", "dash_air_state", "ground_state", "sprite")]
 script = ExtResource("31_qyjpv")
 flying_state = NodePath("../Fly")
 dash_air_state = NodePath("../DashAir")
 ground_state = NodePath("../Ground")
-air_state = NodePath("../Air")
 sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="MovementGround" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("air_state", "ground_state", "dash_state", "sprite")]
@@ -1019,10 +1018,10 @@ flying_state = NodePath("../Fly")
 ground_state = NodePath("../Ground")
 sprite = NodePath("../../AnimatedSprite2D")
 
-[node name="DashGround" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "air_state", "sprite")]
+[node name="DashGround" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("air_state", "ground_state", "sprite")]
 script = ExtResource("33_hmjys")
-ground_state = NodePath("../Ground")
 air_state = NodePath("../Air")
+ground_state = NodePath("../Ground")
 sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
@@ -1039,7 +1038,7 @@ state_machine = NodePath("../CharacterStateMachine")
 wait_time = 0.5
 
 [node name="AttackATimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.3
 one_shot = true
 
 [node name="AttackAAATimer" type="Timer" parent="."]

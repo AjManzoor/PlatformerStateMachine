@@ -23,7 +23,6 @@ func jump():
 
 func dash():
 	if(Input.is_action_pressed("Charge")):
-		print("gash")
 		next_state= dash_state
 
 func stop_moving():

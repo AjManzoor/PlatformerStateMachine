@@ -9,7 +9,12 @@ func state_process(delta):
 	fly()
 	check_if_landed()
 	check_if_moving()
+	check_energy()
 
+
+func check_energy():
+	if(character.energy <=0):
+		next_state = ground_state
 
 func fly():
 	#playback.travel("Fly")

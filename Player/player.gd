@@ -6,6 +6,7 @@ const JUMP_VELOCITY = -400.0
 var direction : Vector2 = Vector2.ZERO
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var energy : int = 1000
 
 @onready var animation_tree : AnimationTree = $AnimationTree
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -13,6 +14,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	animation_tree.active = true
+	
+
+func reduce_energy(energy_cost):
+	energy -=energy_cost
 
 func update_animation():
 	animation_tree.set("parameters/Idle", direction.x)
@@ -32,7 +37,6 @@ func _physics_process(delta):
 
 	move_and_slide()
 	update_animation()
-#	update_facing_direction()
 	check_if_alive()
 	
 func check_if_alive():

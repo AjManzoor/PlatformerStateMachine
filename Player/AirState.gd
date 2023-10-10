@@ -14,12 +14,12 @@ var has_double_jumped : bool = false
 func state_process(delta):
 	if(character.velocity.y > 0 && !character.is_on_floor()):
 		next_state = landing_state
+	fly()
+
 
 func state_input(event : InputEvent):
 	if(event.is_action_pressed("Jump") && !has_double_jumped):
 		double_jump()
-	elif event.is_action_pressed("Jump") && has_double_jumped:
-		next_state = fly_state
 
 func on_enter():
 	playback.travel("Jump")
@@ -29,6 +29,10 @@ func double_jump():
 	character.velocity.y = double_jump_velocity
 	has_double_jumped = true;
 	playback.travel(double_jump_name)
+	
+func fly():
+	if Input.is_action_pressed("Charge") && character.energy >= 0:
+		next_state = fly_state
 
 func on_exit():
 	if(next_state == landing_state):

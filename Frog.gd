@@ -32,7 +32,6 @@ func _on_player_collision_body_entered(body):
 	if body is Player:
 		var current_state = body.get_current_state()
 		if !current_state is AttackState:
-			print(current_state)
 			body.update_hurt_player(2)
 		death()
 

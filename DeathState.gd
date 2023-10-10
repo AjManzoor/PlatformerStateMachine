@@ -11,6 +11,7 @@ func state_process(delta):
 		pass
 
 func on_enter():
+	character.velocity.x +=500
 	timer.start()
 	playback.travel("Death")
 

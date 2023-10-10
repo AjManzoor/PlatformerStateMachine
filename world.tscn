@@ -416,11 +416,13 @@ sources/0 = SubResource("TileSetAtlasSource_bhpjo")
 [sub_resource type="GDScript" id="GDScript_2jh2v"]
 script/source = "extends Label
 
+@export var Character : CharacterBody2D
+
 func _ready():
 	pass
 	
 func _process(delta):
-	text = \"Gold: \" + str(Game.gold)
+	text = \"KI: \" + str(Character.energy)
 "
 
 [node name="World" type="Node2D"]
@@ -486,7 +488,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 script = ExtResource("6_31swt")
 
-[node name="Gold" type="Label" parent="UI"]
+[node name="Gold" type="Label" parent="UI" node_paths=PackedStringArray("Character")]
 offset_left = 113.0
 offset_top = 26.0
 offset_right = 153.0
@@ -494,6 +496,7 @@ offset_bottom = 60.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 script = SubResource("GDScript_2jh2v")
+Character = NodePath("../../Player/Player")
 
 [node name="Collectables" type="Node2D" parent="."]
 script = ExtResource("7_8qeg7")

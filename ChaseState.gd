@@ -14,7 +14,6 @@ func stop_chase():
 	playback.travel("Idle")
 	next_state = ground_state
 
-
 func on_enter():
 	chase() 
 
