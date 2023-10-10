@@ -479,7 +479,7 @@ position = Vector2(660, 169)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="HP" type="Label" parent="UI"]
+[node name="HP" type="Label" parent="UI" node_paths=PackedStringArray("character")]
 offset_left = 20.0
 offset_top = 26.0
 offset_right = 60.0
@@ -487,6 +487,7 @@ offset_bottom = 49.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 script = ExtResource("6_31swt")
+character = NodePath("../../Player/Player")
 
 [node name="Gold" type="Label" parent="UI" node_paths=PackedStringArray("Character")]
 offset_left = 113.0

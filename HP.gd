@@ -1,7 +1,8 @@
 extends Label
+@export var character : CharacterBody2D
 
 func _ready():
 	pass
 	
 func _process(delta):
-	text = "HP: " + str(Game.playerHP)
+	text = "HP: " + str(character.health)

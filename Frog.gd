@@ -3,7 +3,7 @@ extends CharacterBody2D
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction : Vector2 = Vector2.ZERO
-
+var heath : int = 100
 
 @onready var animation_tree : AnimationTree = $AnimationTree
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -20,19 +20,13 @@ func _physics_process(delta):
 	velocity.y += gravity * delta
 	update_animation()
 	move_and_slide()
-	update_facing_direction()
-
-
-func _on_player_death_body_entered(body):
-	if body is Player:
-		death()
-		
+	update_facing_direction()		
 
 func _on_player_collision_body_entered(body):
 	if body is Player:
 		var current_state = body.get_current_state()
 		if !current_state is AttackState:
-			body.update_hurt_player(2)
+			body.take_damage(30)
 		death()
 
 func death():

@@ -7,6 +7,7 @@ var direction : Vector2 = Vector2.ZERO
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var energy : int = 1000
+var health : int = 100
 
 @onready var animation_tree : AnimationTree = $AnimationTree
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -22,9 +23,9 @@ func reduce_energy(energy_cost):
 func update_animation():
 	animation_tree.set("parameters/Idle", direction.x)
 
-func update_hurt_player(attack_damage):
+func take_damage(attack_damage):
 	if(state_machine.current_state.is_hurt == false):
-		Game.playerHP -= attack_damage	
+		health -= attack_damage	
 	state_machine.update_hurt_player()
 
 func get_current_state():
@@ -40,12 +41,12 @@ func _physics_process(delta):
 	check_if_alive()
 	
 func check_if_alive():
-	if Game.playerHP <= 0:
+	if health <= 0:
 		queue_free()
 		get_tree().change_scene_to_file("res://main.tscn")
 		reset_player()
 
 func reset_player():
-	Game.playerHP = 10
+	health = 100
 	Game.gold = 0;
 	Utils.saveGame()
