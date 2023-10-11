@@ -13,4 +13,3 @@ func _on_hurt_timer_timeout():
 
 func ground():
 	next_state = ground_state
-	#character.velocity.x +=0
