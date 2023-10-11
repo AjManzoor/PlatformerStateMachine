@@ -18,4 +18,4 @@ func chase():
 
 
 func on_enter():
-	print("Ground")
+	pass

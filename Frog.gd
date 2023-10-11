@@ -27,12 +27,16 @@ func _on_player_collision_body_entered(body):
 		var current_state = body.get_current_state()
 		if !current_state is AttackState:
 			body.take_damage(30)
-		death()
+		#death()
+
+
+func take_damage(damage):
+	print("damwged")
 
 func death():
 	Game.gold +=5
 	Utils.saveGame()
-	state_machine.death()
+	#state_machine.death()
 	
 func update_facing_direction():
 	var player = get_node("../../Player/Player")

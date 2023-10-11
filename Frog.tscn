@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://ChaseState.gd" id="11_yt2g7"]
 [ext_resource type="Script" path="res://DeathState.gd" id="12_c454k"]
 [ext_resource type="Texture2D" uid="uid://bfi0br8ohxxmc" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/item-feedback/item-feedback-4.png" id="12_xt7ov"]
+[ext_resource type="Script" path="res://PlayerCollision.gd" id="13_51jqh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nritg"]
 size = Vector2(24, 16)
@@ -159,11 +160,8 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bus7y"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vyg62"]
-size = Vector2(1.6001, 0.2773)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_idrnp"]
-size = Vector2(2.0365, 1.02997)
+size = Vector2(2.61835, 2.57493)
 
 [sub_resource type="Animation" id="Animation_i04i3"]
 resource_name = "Death"
@@ -365,17 +363,11 @@ frame = 1
 scale = Vector2(13.7491, 12.6217)
 shape = SubResource("CircleShape2D_bus7y")
 
-[node name="PlayerDeath" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeath"]
-position = Vector2(-1, -5)
-scale = Vector2(13.7491, 12.6217)
-shape = SubResource("RectangleShape2D_vyg62")
-
 [node name="PlayerCollision" type="Area2D" parent="."]
+script = ExtResource("13_51jqh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCollision"]
-position = Vector2(4.17233e-07, 4.5)
+position = Vector2(1.19209e-07, 1.75001)
 scale = Vector2(13.7491, 12.6217)
 shape = SubResource("RectangleShape2D_idrnp")
 
@@ -423,7 +415,6 @@ wait_time = 0.3
 
 [connection signal="body_entered" from="PlayerDetection" to="FrogStateMachine/Ground" method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="FrogStateMachine/Chase" method="_on_player_detection_body_exited"]
-[connection signal="body_entered" from="PlayerDeath" to="." method="_on_player_death_body_entered"]
 [connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision_body_entered"]
 [connection signal="body_exited" from="PlayerCollision" to="." method="_on_player_collision_body_exited"]
 [connection signal="timeout" from="DeathTimer" to="FrogStateMachine/Death" method="_on_timer_timeout"]

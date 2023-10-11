@@ -1,4 +1,4 @@
-[gd_scene load_steps=119 format=3 uid="uid://dtxi8eu63tmx2"]
+[gd_scene load_steps=121 format=3 uid="uid://dtxi8eu63tmx2"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_uwbkq"]
 [ext_resource type="Texture2D" uid="uid://llcujgxeoky5" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/player/crouch/player-crouch-1.png" id="2_bnvgj"]
@@ -472,6 +472,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qy4v"]
+size = Vector2(19, 26)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lxfls"]
+size = Vector2(20, 10)
+
 [sub_resource type="Animation" id="Animation_33up4"]
 resource_name = "Attack"
 tracks/0/type = "value"
@@ -498,6 +504,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D/AttackAArea2D/AttackACollision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
 
 [sub_resource type="Animation" id="Animation_jrq6k"]
 resource_name = "Attack_2"
@@ -521,10 +539,22 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 5]
+"values": [1, 2, 3, 0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D/AttackAAArea2D/AttackAACollision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
 }
 
 [sub_resource type="Animation" id="Animation_r4ej3"]
@@ -773,6 +803,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [&"Attack_3"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D/AttackAArea2D/AttackACollision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D/AttackAAArea2D/AttackAACollision:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_b1dla"]
 resource_name = "Run"
@@ -908,10 +962,12 @@ states/Run/node = SubResource("AnimationNodeAnimation_rautm")
 states/Run/position = Vector2(436, 151)
 states/Start/position = Vector2(111, 100)
 transitions = ["Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_kh57n"), "Jump", "Jump 2", SubResource("AnimationNodeStateMachineTransition_kll76"), "Jump 2", "Fall", SubResource("AnimationNodeStateMachineTransition_scxai"), "Jump 2", "Fly", SubResource("AnimationNodeStateMachineTransition_7sr16"), "Attack", "Attack_2", SubResource("AnimationNodeStateMachineTransition_qqq65"), "Attack_2", "Attack_3", SubResource("AnimationNodeStateMachineTransition_xi04q"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_goqbn"), "Idle", "Crouch", SubResource("AnimationNodeStateMachineTransition_jbq6i"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_31wrm"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_3khji"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_yyt7f"), "Run", "Dash", SubResource("AnimationNodeStateMachineTransition_pw7ox")]
-graph_offset = Vector2(59.8557, 41.3334)
+graph_offset = Vector2(59.8557, -45.5438)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("attack_a_hitbox", "attack_aa_hitbox")]
 script = ExtResource("1_uwbkq")
+attack_a_hitbox = NodePath("AnimatedSprite2D/AttackAArea2D/AttackACollision")
+attack_aa_hitbox = NodePath("AnimatedSprite2D/AttackAAArea2D/AttackAACollision")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4, -9)
@@ -923,6 +979,18 @@ sprite_frames = SubResource("SpriteFrames_i04x5")
 animation = &"Attack_3"
 frame = 1
 metadata/_edit_lock_ = true
+
+[node name="AttackAAArea2D" type="Area2D" parent="AnimatedSprite2D"]
+
+[node name="AttackAACollision" type="CollisionShape2D" parent="AnimatedSprite2D/AttackAAArea2D"]
+position = Vector2(29, -6)
+shape = SubResource("RectangleShape2D_0qy4v")
+
+[node name="AttackAArea2D" type="Area2D" parent="AnimatedSprite2D"]
+
+[node name="AttackACollision" type="CollisionShape2D" parent="AnimatedSprite2D/AttackAArea2D"]
+position = Vector2(35, -6)
+shape = SubResource("RectangleShape2D_lxfls")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.6, 1.6)
@@ -982,22 +1050,25 @@ move_state = NodePath("../MovementAir")
 script = ExtResource("26_y1mn7")
 ground_state = NodePath("../Ground")
 
-[node name="AttackA" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "attack_timer", "next_attack_state")]
+[node name="AttackA" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "attack_timer", "next_attack_state", "attack_hitbox")]
 script = ExtResource("28_p0f8q")
 ground_state = NodePath("../Ground")
 attack_timer = NodePath("../../AttackATimer")
 next_attack_state = NodePath("../AttackAA")
+attack_hitbox = NodePath("../../AnimatedSprite2D/AttackAArea2D/AttackACollision")
 
-[node name="AttackAA" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "attack_timer", "next_attack_state")]
+[node name="AttackAA" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "attack_timer", "next_attack_state", "attack_hitbox")]
 script = ExtResource("28_mg6eq")
 ground_state = NodePath("../Ground")
 attack_timer = NodePath("../../AttackAATimer")
 next_attack_state = NodePath("../AttackAAA")
+attack_hitbox = NodePath("../../AnimatedSprite2D/AttackAAArea2D/AttackAACollision")
 
-[node name="AttackAAA" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "attack_timer")]
+[node name="AttackAAA" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "attack_timer", "attack_hitbox")]
 script = ExtResource("29_ssfod")
 ground_state = NodePath("../Ground")
 attack_timer = NodePath("../../AttackAAATimer")
+attack_hitbox = NodePath("../../AnimatedSprite2D/AttackAAArea2D/AttackAACollision")
 
 [node name="Movement" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "sprite")]
 script = ExtResource("30_6lvfa")
@@ -1031,10 +1102,10 @@ ground_state = NodePath("../Ground")
 sprite = NodePath("../../AnimatedSprite2D")
 
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
-offset_left = -58.0
-offset_top = -36.0
-offset_right = 76.0
-offset_bottom = -10.0
+offset_left = -57.0
+offset_top = -50.0
+offset_right = 77.0
+offset_bottom = -24.0
 text = "Label:
 "
 script = ExtResource("20_fmopu")
@@ -1051,6 +1122,8 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
+[connection signal="area_entered" from="AnimatedSprite2D/AttackAAArea2D" to="." method="_on_attack_aa_area_2d_area_entered"]
+[connection signal="area_entered" from="AnimatedSprite2D/AttackAArea2D" to="." method="_on_attack_a_area_2d_area_entered"]
 [connection signal="timeout" from="AttackAATimer" to="CharacterStateMachine/AttackAA" method="_on_attack_aa_timer_timeout"]
 [connection signal="timeout" from="AttackATimer" to="CharacterStateMachine/AttackA" method="_on_attack_a_timer_timeout"]
 [connection signal="timeout" from="AttackAAATimer" to="CharacterStateMachine/AttackAAA" method="_on_attack_aaa_timer_timeout"]
