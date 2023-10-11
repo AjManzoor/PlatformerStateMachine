@@ -13,11 +13,17 @@ var health : int = 100
 @onready var state_machine : CharacterStateMachine = $CharacterStateMachine
 @export var attack_a_hitbox : CollisionShape2D
 @export var attack_aa_hitbox : CollisionShape2D
+@export var attack_aaa_hitbox : CollisionShape2D
 
 func _ready():
 	animation_tree.active = true
+	disable_hit_boxes()
+	
+	
+func disable_hit_boxes():
 	attack_a_hitbox.set_disabled(true)
 	attack_aa_hitbox.set_disabled(true)
+	attack_aaa_hitbox.set_disabled(true)
 
 func reduce_energy(energy_cost):
 	energy -=energy_cost
@@ -60,3 +66,7 @@ func _on_attack_a_area_2d_area_entered(area):
 func _on_attack_aa_area_2d_area_entered(area):
 	if area is HurtBox:
 		area.take_damage(20)
+
+func _on_attack_aaa_area_2d_area_entered(area):
+	if area is HurtBox:
+		area.take_damage(30)
