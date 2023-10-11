@@ -363,8 +363,9 @@ frame = 1
 scale = Vector2(13.7491, 12.6217)
 shape = SubResource("CircleShape2D_bus7y")
 
-[node name="PlayerCollision" type="Area2D" parent="."]
+[node name="PlayerCollision" type="Area2D" parent="." node_paths=PackedStringArray("character")]
 script = ExtResource("13_51jqh")
+character = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCollision"]
 position = Vector2(1.19209e-07, 1.75001)
@@ -412,10 +413,9 @@ state_machine = NodePath("../FrogStateMachine")
 [node name="DeathTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 0.3
-one_shot = true
 
 [connection signal="body_entered" from="PlayerDetection" to="FrogStateMachine/Ground" method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="FrogStateMachine/Chase" method="_on_player_detection_body_exited"]
 [connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision_body_entered"]
 [connection signal="body_exited" from="PlayerCollision" to="." method="_on_player_collision_body_exited"]
-[connection signal="timeout" from="DeathTimer" to="FrogStateMachine/Death" method="_on_death_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="FrogStateMachine/Death" method="_on_timer_timeout"]

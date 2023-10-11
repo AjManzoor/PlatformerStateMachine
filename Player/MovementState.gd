@@ -37,5 +37,7 @@ func dash():
 func update_facing_direction():
 	if direction.x > 0:
 		sprite.flip_h = false
+		character.flip_collisions_right()
 	elif direction.x < 0:
 		sprite.flip_h = true
+		character.flip_collisions_left()

@@ -18,7 +18,22 @@ var health : int = 100
 func _ready():
 	animation_tree.active = true
 	disable_hit_boxes()
+
+func  flip_collisions_left():
+	for collision in [attack_a_hitbox, attack_aa_hitbox, attack_aaa_hitbox]:
+			flip_collision_left(collision)
+
+func flip_collisions_right():
+	for collision in [attack_a_hitbox, attack_aa_hitbox, attack_aaa_hitbox]:
+		flip_collision_right(collision)
 	
+func flip_collision_left(collision):
+	if collision.position.x > 0:
+		collision.position.x = -1 * (collision.position.x)
+		
+func flip_collision_right(collision):
+	if collision.position.x < 0:
+		collision.position.x = -1 * (collision.position.x)
 	
 func disable_hit_boxes():
 	attack_a_hitbox.set_disabled(true)
