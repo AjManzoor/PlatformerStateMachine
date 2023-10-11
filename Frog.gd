@@ -27,13 +27,8 @@ func _physics_process(delta):
 func _on_player_collision_body_entered(body):
 	if body is Player:
 		pass
-		#var current_state = body.get_current_state()
-		#if !current_state is AttackState:
-			#body.take_damage(30)
-		#death()
 
 func take_damage(damage):
-	print(health)
 	health -=damage
 
 func check_if_dead():

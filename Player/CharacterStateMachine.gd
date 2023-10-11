@@ -24,9 +24,6 @@ func update_hurt_player():
 
 func _process(delta):
 	current_state.state_process(delta)
-	
-	#print(current_state)
-	#print(current_state.next_state)
 	if(current_state.next_state != null):
 		switch_states(current_state.next_state)
 

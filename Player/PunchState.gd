@@ -15,13 +15,10 @@ func on_enter():
 func animation():
 	pass
 
-
 func ground():
 	print("STATE : ground") 
 	next_state = ground_state
 	can_move = false
-	print(next_state)
-
 
 func _on_timer_timeout():
 	ground()
