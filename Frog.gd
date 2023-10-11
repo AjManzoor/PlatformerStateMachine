@@ -8,14 +8,13 @@ var is_dead = false
 
 @onready var animation_tree : AnimationTree = $AnimationTree
 @onready var sprite : AnimatedSprite2D = $AnimatedSprite2D
-@onready var state_machine : EnemyStateMachine = $FrogStateMachine
+@onready var state_machine : EnemyStateMachine = $EnemySpawnStateMachine
 
 func _ready():
 	animation_tree.active = true
 
 func update_animation():
 	animation_tree.set("parameters/Idle", true)
-
 
 func _physics_process(delta):
 	velocity.y += gravity * delta
@@ -35,7 +34,6 @@ func check_if_dead():
 	if(health <=0 and is_dead == false):
 		is_dead = true
 		death()
-
 
 func death():
 	Game.gold +=5

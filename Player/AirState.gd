@@ -31,7 +31,7 @@ func double_jump():
 	playback.travel(double_jump_name)
 	
 func fly():
-	if Input.is_action_pressed("Charge") && character.energy >= 0:
+	if Input.is_action_pressed("Charge") && character.energy > 0:
 		next_state = fly_state
 
 func on_exit():

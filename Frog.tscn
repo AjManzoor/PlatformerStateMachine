@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bowi5844tn18f"]
+[gd_scene load_steps=55 format=3 uid="uid://bowi5844tn18f"]
 
 [ext_resource type="Script" path="res://Frog.gd" id="1_0o3de"]
 [ext_resource type="Texture2D" uid="uid://dfj3r5nf3ikmn" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/frog/jump/frog-jump-2.png" id="1_vmgeb"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://befurvu5ep8yj" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/spritesheets/enemy-deadth.png" id="2_ju7wb"]
 [ext_resource type="Texture2D" uid="uid://hry831aj4epr" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/frog/idle/frog-idle-2.png" id="3_dlsgs"]
 [ext_resource type="Texture2D" uid="uid://cv8yf1rs0jeam" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/frog/idle/frog-idle-3.png" id="4_4iq5w"]
+[ext_resource type="Texture2D" uid="uid://1nndw0t7a1na" path="res://CharacterSprites/Buu.png" id="4_s085p"]
 [ext_resource type="Texture2D" uid="uid://hsqo51i6k8n3" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/frog/idle/frog-idle-4.png" id="5_slf1c"]
 [ext_resource type="Texture2D" uid="uid://b4hx15i84nbqa" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/spritesheets/frog-jump.png" id="6_bq60u"]
 [ext_resource type="Texture2D" uid="uid://de24t0jhkruup" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/item-feedback/item-feedback-1.png" id="9_2xyo2"]
@@ -45,6 +46,38 @@ region = Rect2(160, 0, 40, 41)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwb48"]
 atlas = ExtResource("2_ju7wb")
 region = Rect2(200, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y487s"]
+atlas = ExtResource("4_s085p")
+region = Rect2(0, 0, 147, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3b506"]
+atlas = ExtResource("4_s085p")
+region = Rect2(147, 0, 147, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uds40"]
+atlas = ExtResource("4_s085p")
+region = Rect2(294, 0, 147, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjnrw"]
+atlas = ExtResource("4_s085p")
+region = Rect2(441, 0, 147, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xc7j"]
+atlas = ExtResource("4_s085p")
+region = Rect2(588, 0, 147, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3dno"]
+atlas = ExtResource("4_s085p")
+region = Rect2(735, 0, 147, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ul06f"]
+atlas = ExtResource("4_s085p")
+region = Rect2(882, 0, 147, 99)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8deh0"]
+atlas = ExtResource("4_s085p")
+region = Rect2(1029, 0, 147, 99)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7vlv3"]
 atlas = ExtResource("6_bq60u")
@@ -93,6 +126,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_y487s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3b506")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uds40")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wjnrw")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_61nei")
 }, {
 "duration": 1.0,
@@ -123,7 +173,24 @@ animations = [{
 "texture": ExtResource("2_61nei")
 }],
 "loop": true,
-"name": &"Idle",
+"name": &"Idle_zz",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xc7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3dno")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ul06f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8deh0")
+}],
+"loop": true,
+"name": &"Jump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -137,7 +204,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_iax6n")
 }],
 "loop": true,
-"name": &"Jump",
+"name": &"Jump_zz",
 "speed": 5.0
 }, {
 "frames": [{
@@ -343,7 +410,7 @@ states/Start/position = Vector2(189, 86)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_jgm1e"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_xbv6h"), "Sparkle", "Death", SubResource("AnimationNodeStateMachineTransition_nb1b3")]
 graph_offset = Vector2(44.8969, 0)
 
-[node name="Frog" type="CharacterBody2D"]
+[node name="EnemySpawn" type="CharacterBody2D"]
 script = ExtResource("1_0o3de")
 metadata/_edit_vertical_guides_ = [-248.0]
 
@@ -353,9 +420,9 @@ shape = SubResource("RectangleShape2D_nritg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
+scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_j4i4x")
 animation = &"Death"
-frame = 1
 
 [node name="PlayerDetection" type="Area2D" parent="."]
 
@@ -381,23 +448,23 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_x0epo")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="FrogStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("death_state", "character", "current_state", "animation_tree")]
+[node name="EnemySpawnStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("death_state", "character", "current_state", "animation_tree")]
 script = ExtResource("9_o7viq")
 death_state = NodePath("Death")
 character = NodePath("..")
 current_state = NodePath("Ground")
 animation_tree = NodePath("../AnimationTree")
 
-[node name="Death" type="Node" parent="FrogStateMachine" node_paths=PackedStringArray("anim", "timer")]
+[node name="Death" type="Node" parent="EnemySpawnStateMachine" node_paths=PackedStringArray("anim", "timer")]
 script = ExtResource("12_c454k")
 anim = NodePath("../../AnimationPlayer")
 timer = NodePath("../../DeathTimer")
 
-[node name="Ground" type="Node" parent="FrogStateMachine" node_paths=PackedStringArray("chase_state")]
+[node name="Ground" type="Node" parent="EnemySpawnStateMachine" node_paths=PackedStringArray("chase_state")]
 script = ExtResource("10_oactp")
 chase_state = NodePath("../Chase")
 
-[node name="Chase" type="Node" parent="FrogStateMachine" node_paths=PackedStringArray("ground_state")]
+[node name="Chase" type="Node" parent="EnemySpawnStateMachine" node_paths=PackedStringArray("ground_state")]
 script = ExtResource("11_yt2g7")
 ground_state = NodePath("../Ground")
 
@@ -408,15 +475,15 @@ offset_right = 124.0
 offset_bottom = -11.0
 text = "State:"
 script = ExtResource("11_4jfyc")
-state_machine = NodePath("../FrogStateMachine")
+state_machine = NodePath("../EnemySpawnStateMachine")
 
 [node name="DeathTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 0.3
 one_shot = true
 
-[connection signal="body_entered" from="PlayerDetection" to="FrogStateMachine/Ground" method="_on_player_detection_body_entered"]
-[connection signal="body_exited" from="PlayerDetection" to="FrogStateMachine/Chase" method="_on_player_detection_body_exited"]
+[connection signal="body_entered" from="PlayerDetection" to="EnemySpawnStateMachine/Ground" method="_on_player_detection_body_entered"]
+[connection signal="body_exited" from="PlayerDetection" to="EnemySpawnStateMachine/Chase" method="_on_player_detection_body_exited"]
 [connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision_body_entered"]
 [connection signal="body_exited" from="PlayerCollision" to="." method="_on_player_collision_body_exited"]
-[connection signal="timeout" from="DeathTimer" to="FrogStateMachine/Death" method="_on_death_timer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="EnemySpawnStateMachine/Death" method="_on_death_timer_timeout"]
