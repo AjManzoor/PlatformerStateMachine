@@ -18,4 +18,4 @@ func chase():
 
 
 func on_enter():
-	pass
+	playback.travel("Idle")

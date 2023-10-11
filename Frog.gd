@@ -29,6 +29,7 @@ func _on_player_collision_body_entered(body):
 
 func take_damage(damage):
 	health -=damage
+	state_machine.hurt()
 
 func check_if_dead():
 	if(health <=0 and is_dead == false):

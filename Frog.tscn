@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bowi5844tn18f"]
+[gd_scene load_steps=61 format=3 uid="uid://bowi5844tn18f"]
 
 [ext_resource type="Script" path="res://Frog.gd" id="1_0o3de"]
 [ext_resource type="Texture2D" uid="uid://dfj3r5nf3ikmn" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/frog/jump/frog-jump-2.png" id="1_vmgeb"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" path="res://DeathState.gd" id="12_c454k"]
 [ext_resource type="Texture2D" uid="uid://bfi0br8ohxxmc" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/item-feedback/item-feedback-4.png" id="12_xt7ov"]
 [ext_resource type="Script" path="res://PlayerCollision.gd" id="13_51jqh"]
+[ext_resource type="Script" path="res://HurtState.gd" id="19_16nnw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nritg"]
 size = Vector2(24, 16)
@@ -46,6 +47,18 @@ region = Rect2(160, 0, 40, 41)
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwb48"]
 atlas = ExtResource("2_ju7wb")
 region = Rect2(200, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_poac8"]
+atlas = ExtResource("4_s085p")
+region = Rect2(0, 178, 147, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rckir"]
+atlas = ExtResource("4_s085p")
+region = Rect2(147, 178, 147, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y76vk"]
+atlas = ExtResource("4_s085p")
+region = Rect2(294, 178, 147, 89)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y487s"]
 atlas = ExtResource("4_s085p")
@@ -122,6 +135,20 @@ animations = [{
 }],
 "loop": true,
 "name": &"Fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_poac8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rckir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y76vk")
+}],
+"loop": true,
+"name": &"Hurt",
 "speed": 5.0
 }, {
 "frames": [{
@@ -223,6 +250,11 @@ animations = [{
 "loop": true,
 "name": &"Sparkle",
 "speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bus7y"]
@@ -257,8 +289,37 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_tkcnv"]
+resource_name = "Hurt"
+length = 0.26
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Hurt"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
 [sub_resource type="Animation" id="Animation_nliwp"]
 resource_name = "Idle"
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -308,10 +369,10 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2]
+"values": [0, 1, 2, 3]
 }
 
 [sub_resource type="Animation" id="Animation_7wrsw"]
@@ -371,6 +432,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5whgd"]
 _data = {
 "Death": SubResource("Animation_i04i3"),
+"Hurt": SubResource("Animation_tkcnv"),
 "Idle": SubResource("Animation_nliwp"),
 "Jump": SubResource("Animation_ym0rl"),
 "RESET": SubResource("Animation_7wrsw"),
@@ -379,6 +441,9 @@ _data = {
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ygpac"]
 animation = &"Death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rru8k"]
+animation = &"Hurt"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_olvlm"]
 animation = &"Idle"
@@ -400,6 +465,8 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_x0epo"]
 states/Death/node = SubResource("AnimationNodeAnimation_ygpac")
 states/Death/position = Vector2(751, 42)
+states/Hurt/node = SubResource("AnimationNodeAnimation_rru8k")
+states/Hurt/position = Vector2(616.897, 81)
 states/Idle/node = SubResource("AnimationNodeAnimation_olvlm")
 states/Idle/position = Vector2(307, 86)
 states/Jump/node = SubResource("AnimationNodeAnimation_d1lna")
@@ -448,9 +515,10 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_x0epo")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="EnemySpawnStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("death_state", "character", "current_state", "animation_tree")]
+[node name="EnemySpawnStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("death_state", "hurt_state", "character", "current_state", "animation_tree")]
 script = ExtResource("9_o7viq")
 death_state = NodePath("Death")
+hurt_state = NodePath("Hurt")
 character = NodePath("..")
 current_state = NodePath("Ground")
 animation_tree = NodePath("../AnimationTree")
@@ -468,6 +536,11 @@ chase_state = NodePath("../Chase")
 script = ExtResource("11_yt2g7")
 ground_state = NodePath("../Ground")
 
+[node name="Hurt" type="Node" parent="EnemySpawnStateMachine" node_paths=PackedStringArray("hurt_timer", "ground_state")]
+script = ExtResource("19_16nnw")
+hurt_timer = NodePath("../../HurtTimer")
+ground_state = NodePath("../Ground")
+
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -21.0
 offset_top = -37.0
@@ -482,8 +555,11 @@ process_callback = 0
 wait_time = 0.3
 one_shot = true
 
+[node name="HurtTimer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="PlayerDetection" to="EnemySpawnStateMachine/Ground" method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="EnemySpawnStateMachine/Chase" method="_on_player_detection_body_exited"]
 [connection signal="body_entered" from="PlayerCollision" to="." method="_on_player_collision_body_entered"]
 [connection signal="body_exited" from="PlayerCollision" to="." method="_on_player_collision_body_exited"]
 [connection signal="timeout" from="DeathTimer" to="EnemySpawnStateMachine/Death" method="_on_death_timer_timeout"]
+[connection signal="timeout" from="HurtTimer" to="EnemySpawnStateMachine/Hurt" method="_on_hurt_timer_timeout"]
