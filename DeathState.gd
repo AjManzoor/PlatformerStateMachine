@@ -13,5 +13,5 @@ func _process(delta):
 	pass
 
 func _on_death_timer_timeout():
-	print("timeout")
+	print("death timeout")
 	character.queue_free()

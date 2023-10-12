@@ -447,14 +447,14 @@ metadata/_edit_lock_ = true
 
 [node name="Mobs" type="Node2D" parent="."]
 
-[node name="Frog" parent="Mobs" instance=ExtResource("5_qqpf0")]
+[node name="Buu" parent="Mobs" instance=ExtResource("5_qqpf0")]
 position = Vector2(1086, 444)
 
 [node name="Frog2" parent="Mobs" instance=ExtResource("5_qqpf0")]
 position = Vector2(732, 213)
 
 [node name="Frog3" parent="Mobs" instance=ExtResource("5_qqpf0")]
-position = Vector2(375, 224)
+position = Vector2(1232, 153)
 
 [node name="Frog4" parent="Mobs" instance=ExtResource("5_qqpf0")]
 position = Vector2(797, 161)
@@ -463,10 +463,10 @@ position = Vector2(797, 161)
 position = Vector2(882, 214)
 
 [node name="Frog6" parent="Mobs" instance=ExtResource("5_qqpf0")]
-position = Vector2(488, 140)
+position = Vector2(969, 187)
 
 [node name="Frog7" parent="Mobs" instance=ExtResource("5_qqpf0")]
-position = Vector2(657, 322)
+position = Vector2(397, 359)
 
 [node name="Frog8" parent="Mobs" instance=ExtResource("5_qqpf0")]
 position = Vector2(632, 222)
