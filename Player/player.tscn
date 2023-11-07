@@ -1041,7 +1041,6 @@ tree_root = SubResource("AnimationNodeStateMachine_5c8gt")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="CharacterStateMachine" type="Node2D" parent="." node_paths=PackedStringArray("character", "current_state", "animation_tree", "hurt_state")]
-visible = false
 script = ExtResource("16_gpg4w")
 character = NodePath("..")
 current_state = NodePath("Ground")

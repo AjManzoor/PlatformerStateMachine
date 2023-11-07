@@ -9,7 +9,6 @@ class_name  GroundState
 @export var attack_state : State
 @export var move_state : State
 @export var jump_animation : String = "Jump"
-#@export var 
 @export var crouch_animation : String = "Crouch"
 
 func state_process(delta):
