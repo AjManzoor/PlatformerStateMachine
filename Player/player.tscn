@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=3 uid="uid://dtxi8eu63tmx2"]
+[gd_scene load_steps=134 format=3 uid="uid://dtxi8eu63tmx2"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_uwbkq"]
 [ext_resource type="Texture2D" uid="uid://llcujgxeoky5" path="res://Sunny-land-files/Sunny-land-files/Graphical Assets/sprites/player/crouch/player-crouch-1.png" id="2_bnvgj"]
@@ -36,6 +36,7 @@
 [ext_resource type="Script" path="res://Player/DashAirState.gd" id="33_2xf4w"]
 [ext_resource type="Script" path="res://Player/DashGroundState.gd" id="33_hmjys"]
 [ext_resource type="Script" path="res://Player/ChargeState.gd" id="35_r0cju"]
+[ext_resource type="Script" path="res://Player/BlastState.gd" id="36_f7ndf"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u3ljt"]
 radius = 17.0
@@ -88,6 +89,14 @@ region = Rect2(460, 644, 92, 92)
 [sub_resource type="AtlasTexture" id="AtlasTexture_lsijt"]
 atlas = ExtResource("6_cxpmm")
 region = Rect2(552, 644, 92, 92)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4ktx"]
+atlas = ExtResource("6_cxpmm")
+region = Rect2(10, 1095, 91, 73)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxhfk"]
+atlas = ExtResource("6_cxpmm")
+region = Rect2(101, 1095, 91, 73)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fqnkx"]
 atlas = ExtResource("6_cxpmm")
@@ -280,6 +289,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"Attack_3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4ktx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxhfk")
+}],
+"loop": true,
+"name": &"Blast",
 "speed": 5.0
 }, {
 "frames": [{
@@ -945,11 +965,39 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_tjvgg"]
+resource_name = "Blast"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Blast"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_juel5"]
 _data = {
 "Attack": SubResource("Animation_33up4"),
 "Attack_2": SubResource("Animation_jrq6k"),
 "Attack_3": SubResource("Animation_r4ej3"),
+"Blast": SubResource("Animation_tjvgg"),
 "Charge": SubResource("Animation_hbnl3"),
 "Crouch": SubResource("Animation_a8o18"),
 "Dash": SubResource("Animation_wgjps"),
@@ -970,6 +1018,9 @@ animation = &"Attack_2"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e027o"]
 animation = &"Attack_3"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0s1tm"]
+animation = &"Blast"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ydess"]
 animation = &"Charge"
@@ -1028,32 +1079,34 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5c8gt"]
 states/Attack/node = SubResource("AnimationNodeAnimation_ygpps")
-states/Attack/position = Vector2(328, 28)
+states/Attack/position = Vector2(359, -2.5438)
 states/Attack_2/node = SubResource("AnimationNodeAnimation_yokv4")
-states/Attack_2/position = Vector2(488.856, 28)
+states/Attack_2/position = Vector2(519.856, -2.5438)
 states/Attack_3/node = SubResource("AnimationNodeAnimation_e027o")
-states/Attack_3/position = Vector2(635.856, 28)
+states/Attack_3/position = Vector2(666.856, -2.5438)
+states/Blast/node = SubResource("AnimationNodeAnimation_0s1tm")
+states/Blast/position = Vector2(116.856, -2.5438)
 states/Charge/node = SubResource("AnimationNodeAnimation_ydess")
-states/Charge/position = Vector2(219.856, 13.4562)
+states/Charge/position = Vector2(212.856, -2.5438)
 states/Crouch/node = SubResource("AnimationNodeAnimation_ufjsv")
-states/Crouch/position = Vector2(342, 173)
+states/Crouch/position = Vector2(373, 142.456)
 states/Dash/node = SubResource("AnimationNodeAnimation_tpy0d")
-states/Dash/position = Vector2(547, 203)
+states/Dash/position = Vector2(578, 172.456)
 states/End/position = Vector2(1063, 107)
 states/Fall/node = SubResource("AnimationNodeAnimation_lv3wd")
-states/Fall/position = Vector2(653, 173)
+states/Fall/position = Vector2(684, 142.456)
 states/Fly/node = SubResource("AnimationNodeAnimation_4jol6")
-states/Fly/position = Vector2(776, 100)
+states/Fly/position = Vector2(807, 69.4562)
 states/Hurt/node = SubResource("AnimationNodeAnimation_0l3gm")
-states/Hurt/position = Vector2(729, 156)
+states/Hurt/position = Vector2(760, 125.456)
 states/Idle/node = SubResource("AnimationNodeAnimation_txfu3")
 states/Idle/position = Vector2(228, 107)
 states/Jump/node = SubResource("AnimationNodeAnimation_y8s5u")
-states/Jump/position = Vector2(538, 100)
+states/Jump/position = Vector2(569, 69.4562)
 "states/Jump 2/node" = SubResource("AnimationNodeAnimation_2khqi")
-"states/Jump 2/position" = Vector2(653, 100)
+"states/Jump 2/position" = Vector2(684, 69.4562)
 states/Run/node = SubResource("AnimationNodeAnimation_rautm")
-states/Run/position = Vector2(436, 151)
+states/Run/position = Vector2(467, 120.456)
 states/Start/position = Vector2(111, 100)
 transitions = ["Jump", "Fall", SubResource("AnimationNodeStateMachineTransition_kh57n"), "Jump", "Jump 2", SubResource("AnimationNodeStateMachineTransition_kll76"), "Jump 2", "Fall", SubResource("AnimationNodeStateMachineTransition_scxai"), "Jump 2", "Fly", SubResource("AnimationNodeStateMachineTransition_7sr16"), "Attack", "Attack_2", SubResource("AnimationNodeStateMachineTransition_qqq65"), "Attack_2", "Attack_3", SubResource("AnimationNodeStateMachineTransition_xi04q"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_goqbn"), "Idle", "Crouch", SubResource("AnimationNodeStateMachineTransition_jbq6i"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_31wrm"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_3khji"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_yyt7f"), "Run", "Dash", SubResource("AnimationNodeStateMachineTransition_pw7ox")]
 graph_offset = Vector2(59.8557, -45.5438)
@@ -1113,7 +1166,7 @@ current_state = NodePath("Ground")
 animation_tree = NodePath("../AnimationTree")
 hurt_state = NodePath("Hurt")
 
-[node name="Ground" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("air_state", "hurt_state", "crouch_state", "attack_state", "move_state", "charge_state")]
+[node name="Ground" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("air_state", "hurt_state", "crouch_state", "attack_state", "move_state", "charge_state", "blast_state")]
 script = ExtResource("17_8ask0")
 air_state = NodePath("../Air")
 hurt_state = NodePath("../Hurt")
@@ -1121,6 +1174,7 @@ crouch_state = NodePath("../Crouch")
 attack_state = NodePath("../AttackA")
 move_state = NodePath("../MovementGround")
 charge_state = NodePath("../Charge")
+blast_state = NodePath("../Blast")
 
 [node name="Air" type="Node2D" parent="CharacterStateMachine" node_paths=PackedStringArray("landing_state", "fly_state", "hurt_state")]
 script = ExtResource("18_hayfp")
@@ -1205,6 +1259,11 @@ sprite = NodePath("../../AnimatedSprite2D")
 [node name="Charge" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state")]
 script = ExtResource("35_r0cju")
 ground_state = NodePath("../Ground")
+
+[node name="Blast" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("ground_state", "blast_timer")]
+script = ExtResource("36_f7ndf")
+ground_state = NodePath("../Ground")
+blast_timer = NodePath("")
 
 [node name="StateDebugLabel" type="Label" parent="." node_paths=PackedStringArray("state_machine")]
 offset_left = -57.0

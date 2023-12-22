@@ -9,6 +9,7 @@ class_name  GroundState
 @export var attack_state : State
 @export var move_state : State
 @export var charge_state : State
+@export var blast_state : State
 
 @export var jump_animation : String = "Jump"
 @export var crouch_animation : String = "Crouch"
@@ -32,6 +33,9 @@ func check_button_input():
 		
 	if(Input.is_action_just_pressed("Charge")):
 		next_state = charge_state
+		
+	if(Input.is_action_just_pressed("Blast")):
+		next_state = blast_state
 	
 		
 func jump():
