@@ -563,6 +563,7 @@ rotation = -3.14159
 scale = Vector2(1.01816, -1)
 sprite_frames = SubResource("SpriteFrames_j4i4x")
 animation = &"Death"
+frame = 1
 
 [connection signal="body_entered" from="PlayerDetection" to="EnemySpawnStateMachine" method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="EnemySpawnStateMachine" method="_on_player_detection_body_exited"]
