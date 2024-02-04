@@ -24,5 +24,5 @@ func on_enter():
 	var blast = Blast.instantiate()
 	var characterXPos = character.position.x
 	var characterYPos = character.position.y
-	blast.position = Vector2(characterXPos + 50,characterYPos - 5)
+	blast.position = Vector2(characterXPos + 60,characterYPos - 5)
 	add_child(blast)
