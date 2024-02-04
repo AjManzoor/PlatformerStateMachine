@@ -4,6 +4,8 @@ class_name BlastState
 
 @export var ground_state : State
 @export var blast_timer : Timer
+
+var Blast = preload("res://Blast/Blast.tscn")
 	
 	
 func state_process(delta):
@@ -19,3 +21,8 @@ func stop_blasting():
 	
 func on_enter():
 	playback.travel("Blast")
+	var blast = Blast.instantiate()
+	var characterXPos = character.position.x
+	var characterYPos = character.position.y
+	blast.position = Vector2(characterXPos + 50,characterYPos - 5)
+	add_child(blast)

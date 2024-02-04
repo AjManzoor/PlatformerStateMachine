@@ -58,6 +58,7 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor() && !state_machine.current_state is MovementAirState:
 		velocity.y += gravity * delta
+	
 
 	move_and_slide()
 	update_animation()
