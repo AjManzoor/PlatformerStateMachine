@@ -3,51 +3,54 @@
 [ext_resource type="Texture2D" uid="uid://dvavmahiscew" path="res://AssetSprites/Blasts/Blasts.png" id="1_bi7ba"]
 [ext_resource type="Script" path="res://Blast/Blast.gd" id="1_do7ws"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tfwsx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_fels7"]
 atlas = ExtResource("1_bi7ba")
-region = Rect2(75, 0, 75, 93)
+region = Rect2(75, 39, 75, 39)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_luqud"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_qvgg8"]
 atlas = ExtResource("1_bi7ba")
-region = Rect2(150, 0, 75, 93)
+region = Rect2(150, 39, 75, 39)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_88tkh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xis3q"]
 atlas = ExtResource("1_bi7ba")
-region = Rect2(225, 0, 75, 93)
+region = Rect2(225, 39, 75, 39)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0x5y5"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wy4y0"]
 atlas = ExtResource("1_bi7ba")
-region = Rect2(300, 0, 75, 93)
+region = Rect2(300, 39, 75, 39)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_jkfsw"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_5dfaj"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tfwsx")
+"texture": SubResource("AtlasTexture_fels7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_luqud")
+"texture": SubResource("AtlasTexture_qvgg8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_88tkh")
+"texture": SubResource("AtlasTexture_xis3q")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0x5y5")
+"texture": SubResource("AtlasTexture_wy4y0")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_l6dx5"]
-radius = 17.1172
+[sub_resource type="CircleShape2D" id="CircleShape2D_oxe21"]
+radius = 15.1327
 
-[node name="Area2D" type="Area2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("blastAnimation", "blastBody")]
 script = ExtResource("1_do7ws")
+blastAnimation = NodePath("AnimatedSprite2D")
+blastBody = NodePath(".")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_jkfsw")
+position = Vector2(-1, 0)
+sprite_frames = SubResource("SpriteFrames_5dfaj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3, 11)
-shape = SubResource("CircleShape2D_l6dx5")
+position = Vector2(-3, -1)
+shape = SubResource("CircleShape2D_oxe21")
