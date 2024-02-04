@@ -19,10 +19,14 @@ func check_if_player_blasting():
 func stop_blasting():
 	next_state = ground_state
 	
-func on_enter():
-	playback.travel("Blast")
+func spawn_ki_blast():
 	var blast = Blast.instantiate()
 	var characterXPos = character.position.x
 	var characterYPos = character.position.y
 	blast.position = Vector2(characterXPos + 60,characterYPos - 5)
 	add_child(blast)
+	
+func on_enter():
+	playback.travel("Blast")
+	spawn_ki_blast()
+	
